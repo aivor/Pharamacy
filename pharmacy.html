@@ -8,6 +8,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="bulma.css">
+    <script src="js/jquery-3.4.1.slim.js"></script>
   </head>
   <body>
   <!--Navbar-->
@@ -102,5 +103,101 @@
   <script src="js/jquery-3.4.1.js"></script>
   <script src="js/script.js"></script>
   <script src="js/jquery.nicescroll.min.js"></script>
+  <script>
+    //getting user token from localStorage
+    var localToken = window.localStorage.getItem("access_token");
+    console.log(localToken)
+    // ajax calls to create drugs
+    $.ajax({
+      url: "https://virtual-healthcare.herokuapp.com/ap/pharmacy/add-drug",
+      dataType: "json",
+      method: "post",
+      headers: {
+        "Authorization" : `Bearer ${localToken}`
+      },
+      data: {
+        drug_name: drug_name,
+        quantity: quantity,
+        price: price
+      },
+      success: function(res){
+        console.log(res)
+        if(res.drug){
+          var drug_id = res.drug.id;
+          $("#edit").click(function(e){
+            e.preventDefault();
+            // ajax calls to edit a dru
+            $.ajax({
+                  url: `https://virtual-healthcare.herokuapp.com/api/pharmacy/${drug_id}`,
+                  method: "put",
+                  data: {
+                      drug_name: new_drug_name,
+                      quantity: new_quantity
+                  },
+                  headers: {
+                      "Authorization" : `Bearer ${localToken}`
+                  },
+                  success: function(res){
+                      console.log(res)
+                      if(res.drug){
+                        $("#alert").text("drug has been edited")
+                      }
+                },
+                  error: function(err){
+                      console.log(err)
+                    }
+              })
+          })
+        }
+      },
+      error: function(err){
+        console.log(err)
+      }
+    })
+
+    // ajax calls to fetch all prescriptions
+    $.ajax({
+      url: "https://virtual-healthcare.herokuapp.com/api/pahrmacy/prescriptions",
+      method: "get",
+      success: function(res){
+        console.log(res)
+        if(res.data){
+          var pres_id = res.data.id;
+          $.ajax({
+              url: `https://virtual-healthcare.herokuapp.com/api/pahrmacy/prescriptions/${pres_id}`,
+              method: "get",
+              success: function(res){
+                  console.log(res)
+                  if(res.data){
+          
+                  }
+              },
+              error: function(err){
+                console.log(err)
+              }
+    })
+        }
+      },
+      error: function(err){
+        console.log(err)
+      }
+    })
+
+    // Ajax calls to get all drugs
+    
+    $.ajax({
+      url: "https://virtual-healthcare.herokuapp.com/api/pahrmacy/drugs",
+      method: "get",
+      success: function(res){
+        console.log(res)
+        if(res.data){
+          console.log(res.data)
+        }
+      },
+      error: function(err){
+        console.log(err)
+      }
+    })
+  </script>
   </body>
 </html>
