@@ -60,13 +60,18 @@
                     password : password,
                     client_id : '2',
                     client_secret: "Z74s1YLfKaF3WxRYhO8feG42vY1zqmr7HNCX7Nh8",
-                    provider: 'doctors'
+                    provider: 'pharmacists'
                   },
                   success: (res) => {
                     console.log(res)
-                    // if(res.token_type == "Bearer"){
-                    //   var token =  res.access_token
-                    // }
+                    if(res.token_type == "Bearer"){
+                      var token =  res.access_token;
+                      window.localStorage.setItem("access_token",token);
+                      window.location = "pharmacy.html"
+                      // $.ajax({
+                      //   url: `https://virtual-healthcare.herokuapp.com/`
+                      // })
+                    }
                   },
                   error: (err) => {
                     console.log(err)
