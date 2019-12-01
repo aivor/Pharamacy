@@ -168,8 +168,9 @@ function drugTemplate(drug){
           <div class="col-sm">
   <div class="card" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">Doctor name: ${drug.drug_name}</h5>
-    <p class="card-text">Sickness Description: ${drug.quantity}.</p>
+    <h5 class="card-title">${drug.drug_name}</h5>
+    <p class="card-text">Quantity: ${drug.quantity}.</p>
+    <p class="card-text">Price(GHC): ${drug.price}.</p>
     <a href="#" class="button is-primary"> Edit Drug</a>
   </div>
 </div>
