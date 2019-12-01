@@ -60,3 +60,8 @@ a.navabar-burger.toggler{
         transform: translateX(0%);
     }
 }
+.card{
+margin-right: 20px;
+margin-bottom: 20px;
+margin-left: 10px;
+}

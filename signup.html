@@ -67,10 +67,8 @@
                     if(res.token_type == "Bearer"){
                       var token =  res.access_token;
                       window.localStorage.setItem("access_token",token);
-                      window.location = "pharmacy.html"
-                      // $.ajax({
-                      //   url: `https://virtual-healthcare.herokuapp.com/`
-                      // })
+
+                      //window.location = "pharmacy.html"
                     }
                   },
                   error: (err) => {
