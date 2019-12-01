@@ -144,6 +144,41 @@
       </div>
     </div>
   </div>
+  <!-- modal for edit drug -->
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Drug</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="form" method="POST">
+                <div class="form-group">
+                  <label for="drug_name">Drug Name</label>
+                  <input type="text" class="form-control" id="drug_name1" aria-describedby="">
+                  
+                </div>
+                <div class="form-group">
+                  <label for="quantity">Quantity</label>
+                  <input type="number" class="form-control" id="quantity1">
+                </div>
+                <!-- <div class="form-group ">
+                    <label for="price">Price(GHC)</label>
+                  <input type="number" class="form-control" id="price">
+                </div> -->
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary edit">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- <div class="container"></div>
     <div id="form-area">
       <h2>get</h2>
@@ -171,7 +206,7 @@ function drugTemplate(drug){
     <h5 class="card-title">${drug.drug_name}</h5>
     <p class="card-text">Quantity: ${drug.quantity}.</p>
     <p class="card-text">Price(GHC): ${drug.price}.</p>
-    <a href="#" class="button is-primary" class="edit-drug" id="${drug.id}"> Edit Drug</a>
+    <button type="button" class="button is-primary edit-drug" data-toggle="modal" data-target="#exampleModal1" id="${drug.id}">Edit Drug</button>
   </div>
 </div>
 </div>
@@ -193,25 +228,35 @@ $(function (){
       $.each(drugs, function(index, drug){
         $drugs.append( drug.map(drugTemplate).join(''))
       })
-      $("#edit-drug").click(function(e){
+      $(".edit-drug").click(function(e){
         e.preventDefault();
         var edit_id = e.currentTarget.id;
-        $.ajax({
-          type: "put",
-          url: `https://virtual-healthcare.herokuapp.com/api/pharmacy/edit-drug/${edit_id}`,
+        console.log(edit_id)
+        $(".edit").click(function(){
+          var new_name = $("#drug_name1").val();
+          var new_quantity = $("#quantity1").val();
+          console.log(new_name)
+          console.log(new_quantity)
+          $.ajax({
+          method: "put",
+          url: `https://virtual-healthcare.herokuapp.com/api/pharmacy/drug/${edit_id}`,
           headers: {
             "Authorization" : `Bearer ${localToken}`
           },
           data: {
-            drug_name : new_drug_name,
+            drug_name : new_name,
             quantity: new_quantity
           },
           success: function(res){
-            console.log(res)
+            if(res){
+              alert("drug edited successfully")
+              location.reload();
+            }
           },
           error: function(err){
             console.log(err)
           }
+        })
         })
       })
     }
