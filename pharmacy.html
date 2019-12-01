@@ -165,7 +165,8 @@
                 <div class="form-group">
                   <label for="quantity">Quantity</label>
                   <input type="number" class="form-control" id="quantity1">
-                </div>
+                </div><br>
+                <p id="edit"></p>
                 <!-- <div class="form-group ">
                     <label for="price">Price(GHC)</label>
                   <input type="number" class="form-control" id="price">
@@ -233,6 +234,7 @@ $(function (){
         var edit_id = e.currentTarget.id;
         console.log(edit_id)
         $(".edit").click(function(){
+          $("#edit").text("In progress...").css("color","green")
           var new_name = $("#drug_name1").val();
           var new_quantity = $("#quantity1").val();
           console.log(new_name)
@@ -249,7 +251,7 @@ $(function (){
           },
           success: function(res){
             if(res){
-              alert("drug edited successfully")
+              $("#edit").text("drug editted successfully").css("color","green")
               location.reload();
             }
           },
