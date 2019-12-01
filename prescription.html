@@ -109,7 +109,7 @@
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
+
 
             <!-- modal for view all prescripptions -->
       
@@ -132,8 +132,6 @@
           </div>
         </div>
       </div>
-=======
->>>>>>> e9de68c65478d56abdc2fc1e249c2b44d4a73afc
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -220,10 +218,23 @@ $(function (){
         },
         success: function(res){
           console.log(res);
-          if(res){
+          if(res.data){
+            var d_div = $("#new_div p");
+            if(d_div){
+              d_div.remove();
+            }
+           var data = "";
+              data += `
+                      <p>Doctor name: ${res.data.doctor_name}</p>
+                      <p>Medication: ${res.data.medication}</p>
+                      <p>Drug Issued: ${res.data.drug_issued}</p>
+                      <p>Submitted: ${res.data.submitted}</p>
+                    `;
+            
+            $("#new_div").append(data);
 
-          }
-        },
+        }
+      },
         error: function(err){
           console.log(err)
         }
