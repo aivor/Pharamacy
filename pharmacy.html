@@ -171,7 +171,7 @@ function drugTemplate(drug){
     <h5 class="card-title">${drug.drug_name}</h5>
     <p class="card-text">Quantity: ${drug.quantity}.</p>
     <p class="card-text">Price(GHC): ${drug.price}.</p>
-    <a href="#" class="button is-primary"> Edit Drug</a>
+    <a href="#" class="button is-primary" class="edit-drug" id="${drug.id}"> Edit Drug</a>
   </div>
 </div>
 </div>
@@ -189,8 +189,30 @@ $(function (){
     dataType: 'json',
     url: 'https://virtual-healthcare.herokuapp.com/api/pharmacy/drugs',
     success: function(drugs){
+      console.log(drugs)
       $.each(drugs, function(index, drug){
         $drugs.append( drug.map(drugTemplate).join(''))
+      })
+      $("#edit-drug").click(function(e){
+        e.preventDefault();
+        var edit_id = e.currentTarget.id;
+        $.ajax({
+          type: "put",
+          url: `https://virtual-healthcare.herokuapp.com/api/pharmacy/edit-drug/${edit_id}`,
+          headers: {
+            "Authorization" : `Bearer ${localToken}`
+          },
+          data: {
+            drug_name : new_drug_name,
+            quantity: new_quantity
+          },
+          success: function(res){
+            console.log(res)
+          },
+          error: function(err){
+            console.log(err)
+          }
+        })
       })
     }
   })
