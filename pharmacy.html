@@ -159,22 +159,23 @@
             <form id="form" method="POST">
                 <div class="form-group">
                   <label for="drug_name">Drug Name</label>
-                  <input type="text" class="form-control" id="drug_name" aria-describedby="">
+                  <input type="text" class="form-control" id="drug_name1" aria-describedby="">
                   
                 </div>
                 <div class="form-group">
                   <label for="quantity">Quantity</label>
-                  <input type="number" class="form-control" id="quantity">
-                </div>
-                <div class="form-group ">
+                  <input type="number" class="form-control" id="quantity1">
+                </div><br>
+                <p id="edit"></p>
+                <!-- <div class="form-group ">
                     <label for="price">Price(GHC)</label>
                   <input type="number" class="form-control" id="price">
-                </div>
+                </div> -->
               </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary edit">Save changes</button>
         </div>
       </div>
     </div>
@@ -206,7 +207,7 @@ function drugTemplate(drug){
     <h5 class="card-title">${drug.drug_name}</h5>
     <p class="card-text">Quantity: ${drug.quantity}.</p>
     <p class="card-text">Price(GHC): ${drug.price}.</p>
-    <button type="button" class="button is-primary" data-toggle="modal" data-target="#exampleModal1">Edit Drug</button>
+    <button type="button" class="button is-primary edit-drug" data-toggle="modal" data-target="#exampleModal1" id="${drug.id}">Edit Drug</button>
   </div>
 </div>
 </div>
@@ -224,8 +225,41 @@ $(function (){
     dataType: 'json',
     url: 'https://virtual-healthcare.herokuapp.com/api/pharmacy/drugs',
     success: function(drugs){
+      console.log(drugs)
       $.each(drugs, function(index, drug){
         $drugs.append( drug.map(drugTemplate).join(''))
+      })
+      $(".edit-drug").click(function(e){
+        e.preventDefault();
+        var edit_id = e.currentTarget.id;
+        console.log(edit_id)
+        $(".edit").click(function(){
+          $("#edit").text("In progress...").css("color","green")
+          var new_name = $("#drug_name1").val();
+          var new_quantity = $("#quantity1").val();
+          console.log(new_name)
+          console.log(new_quantity)
+          $.ajax({
+          method: "put",
+          url: `https://virtual-healthcare.herokuapp.com/api/pharmacy/drug/${edit_id}`,
+          headers: {
+            "Authorization" : `Bearer ${localToken}`
+          },
+          data: {
+            drug_name : new_name,
+            quantity: new_quantity
+          },
+          success: function(res){
+            if(res){
+              $("#edit").text("drug editted successfully").css("color","green")
+              location.reload();
+            }
+          },
+          error: function(err){
+            console.log(err)
+          }
+        })
+        })
       })
     }
   })
