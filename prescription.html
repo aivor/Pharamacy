@@ -223,12 +223,27 @@ $(function (){
             if(d_div){
               d_div.remove();
             }
+            var submitted;
+            var drug_issued;
+            if(res.data.submitted == 1 || res.data.drug_issued ==1){
+             submitted = "Yes"
+            }
+            else{
+                submitted = "No"
+            }
+
+            if(res.data.drug_issued == 1){
+              drug_issued = "Yes"
+            }
+            else{
+              drug_issued = "No"
+            }
            var data = "";
               data += `
-                      <p>Doctor name: ${res.data.doctor_name}</p>
-                      <p>Medication: ${res.data.medication}</p>
-                      <p>Drug Issued: ${res.data.drug_issued}</p>
-                      <p>Submitted: ${res.data.submitted}</p>
+                      <p class="p-3 mb-2 bg-primary text-white">Doctor name: ${res.data.doctor_name}</p>
+                      <p class="p-3 mb-2 bg-primary text-white">Medication: ${res.data.medication}</p>
+                      <p class="p-3 mb-2 bg-primary text-white">Drug Issued: ${drug_issued}</p>
+                      <p class="p-3 mb-2 bg-primary text-white">Submitted: ${submitted}</p>
                     `;
             
             $("#new_div").append(data);
