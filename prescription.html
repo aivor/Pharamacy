@@ -109,6 +109,7 @@
                 </div>
               </div>
             </div>
+<<<<<<< HEAD
 
             <!-- modal for view all prescripptions -->
       
@@ -131,6 +132,8 @@
           </div>
         </div>
       </div>
+=======
+>>>>>>> e9de68c65478d56abdc2fc1e249c2b44d4a73afc
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -193,10 +196,8 @@ $(function (){
                 <div class="card-body">
                 <h5 class="card-title">Doctor name: ${item.doctor_name}</h5>
                 <p class="card-text">Sickness Description: ${item.case_history}.</p>
-
-                <a href="#" class="button is-primary view_details" id="${item.id}"> view details</a>
-                <button type="button" class="button is-primary" data-toggle="modal"
-                 data-target="#exampleModal2">
+                <button type="button" class="button is-primary view_details" data-toggle="modal"
+                 data-target="#exampleModal2" id="${item.id}">
                  View Prescriptions details
                  </button>
                 </div>
