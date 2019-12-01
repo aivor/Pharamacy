@@ -171,7 +171,7 @@ $(function (){
                 <div class="card-body">
                 <h5 class="card-title">Doctor name: ${item.doctor_name}</h5>
                 <p class="card-text">Sickness Description: ${item.case_history}.</p>
-                <a href="#" class="button is-primary"> view details</a>
+                <a href="#" class="button is-primary view_details" id="${item.id}"> view details</a>
                 </div>
                 </div>
                 </div>
@@ -179,6 +179,28 @@ $(function (){
                 `
      });
      $pres.append(new_div);
+     $(".view_details").click(function(e){
+      e.preventDefault();
+      var pres_id = e.currentTarget.id;
+      console.log(pres_id)
+      $.ajax({
+        url: `https://virtual-healthcare.herokuapp.com/api/pharmacy/prescription/${pres_id}`,
+        method: "get",
+        dataType: "json",
+        headers: {
+            "Authorization": `Bearer ${localToken}`
+        },
+        success: function(res){
+          console.log(res);
+          if(res){
+
+          }
+        },
+        error: function(err){
+          console.log(err)
+        }
+      })
+     })
     },
     error: function(err){
         console.log(err)
