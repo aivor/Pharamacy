@@ -40,7 +40,7 @@
             <a href="#" class="navbar-item">
                  <i class="fas fa-home icon"> </i> Home
             </a>
-            <a href="prescription.html" class="navbar-item"> Prescription </a>
+            <a href="#" class="navbar-item"> Prescription </a>
         </div>
         <div class="navbar-end">
             <div class="navbar-item has-dropdown is-hoverable">
@@ -65,10 +65,11 @@
                     <p class="menu-label">
                       General
                     </p>
-                    <ul class="menu-list">
-                      <li><a><i class="fas fa-tachometer-alt icon"></i> Dashboard</a></li>
+                    <a href="pharmacy.html"><ul class="menu-list">
+                      <li><a ><i class="fas fa-tachometer-alt icon"></i> Dashboard</a></li>
 
                     </ul>
+                    </a>
                     <p class="menu-label">
                       Administration
                     </p>
@@ -101,10 +102,9 @@
         <div class="columns is-variable is-desktop">
           <div class="column">
             <br>
-            <h1 class="title">Dashboard</h1>
+            <h1 class="title">Prescription</h1>
             <div class="container" >
-                <div class="row" id="drugs">
-                  <br>      
+                <div class="row" id="pres">
                   </div>
                 </div>
               </div>
@@ -120,7 +120,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form id="form" method="POST">
+            <form>
                 <div class="form-group">
                   <label for="drug_name">Drug Name</label>
                   <input type="text" class="form-control" id="drug_name" aria-describedby="">
@@ -134,7 +134,7 @@
                     <label for="price">Price(GHC)</label>
                   <input type="number" class="form-control" id="price">
                 </div>
-                <button id="add-drug" type="submit"  class="btn btn-primary">Submit</button>
+                <button id="add-drug"  class="btn btn-primary">Submit</button>
               </form>
         </div>
         <div class="modal-footer">
@@ -144,194 +144,47 @@
       </div>
     </div>
   </div>
-  <!-- <div class="container"></div>
-    <div id="form-area">
-      <h2>get</h2>
-      <input id="get" type="submit" value="Get">
-    </div> -->
-      </div>
-    </div>
+  </div>
   </div>
   </div>
   <script src="js/jquery-3.4.1.js"></script>
   <script src="js/jquery.nicescroll.min.js"></script>
-  <script>
-$(document).ready(function(){
-      //getting user token from localStorage
-      var localToken = window.localStorage.getItem("access_token");
-    console.log(localToken)
-    // ajax calls to create drugs
-    $("add-")
-    // $.ajax({
-    //   url: "https://virtual-healthcare.herokuapp.com/api/pharmacy/add-drug",
-    //   dataType: "json",
-    //   method: "post",
-    //   headers: {
-    //     "Authorization" : `Bearer ${localToken}`
-    //   },
-    //   data: {
-    //     drug_name: drug_name,
-    //     quantity: quantity,
-    //     price: price
-    //   },
-    //   success: function(res){
-    //     console.log(res)
-    //     if(res.drug){
-    //       var drug_id = res.drug.id;
-    //       $("#send").click(function(e){
-            // e.preventDefault();
-    //         // ajax calls to edit a drug
-    //         $.ajax({
-    //               url: `https://virtual-healthcare.herokuapp.com/api/pharmacy/${drug_id}`,
-    //               method: "put",
-    //               data: {
-    //                   drug_name: new_drug_name,
-    //                   quantity: new_quantity
-    //               },
-    //               headers: {
-    //                   "Authorization" : `Bearer ${localToken}`
-    //               },
-    //               success: function(res){
-    //                   console.log(res)
-    //                   if(res.drug){
-    //                     $("#alert").text("drug has been edited")
-    //                   }
-    //             },
-    //               error: function(err){
-    //                   console.log(err)
-    //                 }
-    //           })
-    //       })
-    //     }
-    //   },
-    //   error: function(err){
-    //     console.log(err)
-    //   }
-    // })
-
-    // // ajax calls to fetch all prescriptions
-    // $.ajax({
-    //   url: "https://virtual-healthcare.herokuapp.com/api/pharmacy/prescriptions",
-    //   method: "get",
-    //   success: function(res){
-    //     console.log(res)
-    //     if(res.data){
-    //       var pres_id = res.data.id;
-    //       $.ajax({
-    //           url: `https://virtual-healthcare.herokuapp.com/api/pharmacy/prescriptions/${pres_id}`,
-    //           method: "get",
-    //           success: function(res){
-    //               console.log(res)
-    //               if(res.data){
-          
-    //               }
-    //           },
-    //           error: function(err){
-    //             console.log(err)
-    //           }
-    // })
-    //     }
-    //   },
-    //   error: function(err){
-    //     console.log(err)
-    //   }
-    // })
-
-    // // Ajax calls to get all drugs
-    
-    // $.ajax({
-    //   url: "https://virtual-healthcare.herokuapp.com/api/pahrmacy/drugs",
-    //   method: "get",
-    //   success: function(res){
-    //     console.log(res)
-    //     if(res.data){
-    //       console.log(res.data)
-    //     }
-    //   },
-    //   error: function(err){
-    //     console.log(err)
-    //   }
-    // })
-function drugTemplate(drug){
-  return `
-  
-      <div class="row">
-          <div class="col-sm">
-  <div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">${drug.drug_name}</h5>
-    <p class="card-text">Quantity: ${drug.quantity}.</p>
-    <p class="card-text">Price(GHC): ${drug.price}.</p>
-    <a href="#" class="button is-primary"> Edit Drug</a>
-  </div>
-</div>
-</div>
-</div>
-  `
-}
+   <script>
+       //getting user token from localStorage
+    var localToken = window.localStorage.getItem("access_token");
+// getting doctors prescriptions
 $(function (){
-  var $drugs =$('#drugs');
-  var $drug_name =$('#drug_name');
-  var $quantity = $('#quantity');
-  var $price = $('#price');
-
+    var $pres = $('#pres');
   $.ajax({
     type: 'GET',
     dataType: 'json',
-    url: 'https://virtual-healthcare.herokuapp.com/api/pharmacy/drugs',
-    success: function(drugs){
-      $.each(drugs, function(index, drug){
-        $drugs.append( drug.map(drugTemplate).join(''))
-      })
-    }
-  })
-      });
-
-$("#add-drug").click(function(e){
-  console.log(localToken)
-  e.preventDefault();
-var vname = $("#drug_name").val();
-var vquantity = $("#quantity").val();
-var vprice = $("#price").val();
-console.log(vname)
-console.log(vquantity)
-console.log(vprice)
-if(vname=='' && vquantity=='')
-{
-alert("Please fill out the form");
-}
-else if(vname=='' && vquantity!==''){alert('Name field is required')}
-else if(vquantity=='' && vname!==''){alert('Email field is required')}
-else{
-console.log(vname)
-console.log(vquantity)
-console.log(vprice)
-$.ajax({
-      url: "https://virtual-healthcare.herokuapp.com/api/pharmacy/add-drug",
-      dataType: "json",
-      method: "post",
-      headers: {
-        "Authorization" : `Bearer ${localToken}`
-      },
-      data: {
-        drug_name: vname,
-        quantity: vquantity,
-        price: vprice
-      },
-      success: (res) => {
-        if(res){
-          console.log(res)
-          location.reload()
-        }
-
-      },
-      error: function(err){
+    url: 'https://virtual-healthcare.herokuapp.com/api/pharmacy/prescriptions',
+    headers: {"Authorization" : `Bearer ${localToken}`},
+    success: function(res){
+        var new_div = "";
+     $.each(res.data, function(i, item) {
+        new_div +=  `
+  
+                <div class="row">
+                    <div class="col-sm">
+                <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title">Doctor name: ${item.doctor_name}</h5>
+                <p class="card-text">Sickness type: ${item.case_history}.</p>
+                <a href="#" class="button is-primary"> view details</a>
+                </div>
+                </div>
+                </div>
+                </div>
+                `
+     });
+     $pres.append(new_div);
+    },
+    error: function(err){
         console.log(err)
-      }
-      });
     }
   })
 })
-  </script>
+   </script>
   </body>
 </html>

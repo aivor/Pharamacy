@@ -13,17 +13,13 @@
         <div class="form-container sign-in-container">
             <form class="form" id="myForm">
                 <h1>Sign in</h1>
-                <input type="email" placeholder="Email" id="email" required />
+                <input type="email" placeholder="Email" id="email" />
                 <p id="err1"></p>
                 <input type="password" placeholder="Password" id="password"/>
                 <p id="err2"></p>
                 <a href="#">Forgot your password?</a>
                 <button id="submit">Sign In</button>
                 <p id="err"></p>
-<<<<<<< HEAD
-=======
-
->>>>>>> 59c88eebed7ca4d8f9eaa152a42b39f436d3e2f6
             </form>
         </div>
         <script src="js/jquery-3.4.1.slim.js"></script>
@@ -71,10 +67,8 @@
                     if(res.token_type == "Bearer"){
                       var token =  res.access_token;
                       window.localStorage.setItem("access_token",token);
-                      window.location = "pharmacy.html"
-                      // $.ajax({
-                      //   url: `https://virtual-healthcare.herokuapp.com/`
-                      // })
+
+                      //window.location = "pharmacy.html"
                     }
                   },
                   error: (err) => {
